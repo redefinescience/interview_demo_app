@@ -1,6 +1,6 @@
 package com.kotlineering.interview.domain.stocks.repository
 
-import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.kotlineering.interview.TestComponents
 import com.kotlineering.interview.db.Database
 import com.kotlineering.interview.db.GetStocks
 import com.kotlineering.interview.domain.ApiResult
@@ -18,11 +18,10 @@ import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
-//@RunWith(RobolectricTestRunner::class)
 class StocksRepositoryTests {
 
     companion object {
-        private val testStocks = listOf(
+        val testStocks = listOf(
             StockResult(
                 "GSPC", "SP", "USD", 318157, null, 1681845832
             ), StockResult(
@@ -31,8 +30,6 @@ class StocksRepositoryTests {
                 "BAC", "Bank", "USD", 2393, 10, 1681845832
             )
         )
-
-        private fun getDevOpts() = DeveloperRepository()
 
         private fun getMockApi(): StocksApi = mock {
             onBlocking { getStocks() }.doReturn(ApiResult.Success(StocksResult(testStocks.map { it.copy() })))
@@ -46,16 +43,10 @@ class StocksRepositoryTests {
             )
         }
 
-        private fun getDatabase() = Database(
-            JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
-                Database.Schema.create(it)
-            }
-        )
-
-        fun getRepository(
+        fun getMockRepository(
             api: StocksApi = getMockApi(),
-            devOpts: DeveloperRepository = getDevOpts(),
-            db: Database = getDatabase()
+            devOpts: DeveloperRepository = DeveloperRepository(),
+            db: Database = TestComponents.getDatabase()
         ) = StocksRepository(
             api = api,
             dev = devOpts,
@@ -65,7 +56,7 @@ class StocksRepositoryTests {
 
     @Test
     fun `when stocks are fetched, they are accessed from db in same order`() = runBlocking {
-        val repository = getRepository()
+        val repository = getMockRepository()
         val timeStamp = Clock.System.now().toEpochMilliseconds()
 
         expect(ServiceState.Done) {
@@ -97,8 +88,8 @@ class StocksRepositoryTests {
 
     @Test
     fun `when devOpt empty enabled, should get empty list`() = runBlocking {
-        val devOpts = getDevOpts()
-        val repository = getRepository(devOpts = devOpts)
+        val devOpts = DeveloperRepository()
+        val repository = getMockRepository(devOpts = devOpts)
         devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.EMPTY)
         expect(ServiceState.Done) {
             repository.refreshPortfolio("")
@@ -111,8 +102,8 @@ class StocksRepositoryTests {
     @Test
     fun `when devOpt malformed enabled, should return Api error and get empty list`() =
         runBlocking {
-            val devOpts = getDevOpts()
-            val repository = getRepository(devOpts = devOpts)
+            val devOpts = DeveloperRepository()
+            val repository = getMockRepository(devOpts = devOpts)
             devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.MALFORMED)
             assertTrue {
                 repository.refreshPortfolio("") is ServiceState.Error.Api
@@ -125,8 +116,8 @@ class StocksRepositoryTests {
     @Test
     fun `when devOpt runtime error enabled, should return runtime error and get empty list`() =
         runBlocking {
-            val devOpts = getDevOpts()
-            val repository = getRepository(devOpts = devOpts)
+            val devOpts = DeveloperRepository()
+            val repository = getMockRepository(devOpts = devOpts)
             devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR)
             assertTrue {
                 repository.refreshPortfolio("") is ServiceState.Error.Runtime
@@ -144,7 +135,7 @@ class StocksRepositoryTests {
                     ApiResult.Exception(Exception())
                 )
             }
-            val repository = getRepository(
+            val repository = getMockRepository(
                 api = mockApi
             )
 
