@@ -51,6 +51,7 @@ class StocksHomeFragment : HomeFragment() {
             onRefreshClicked = {
                 viewModel.refreshStocks()
             }
+
             viewModel.refreshing.observe(viewLifecycleOwner) {
                 refreshEnabled = !it
             }

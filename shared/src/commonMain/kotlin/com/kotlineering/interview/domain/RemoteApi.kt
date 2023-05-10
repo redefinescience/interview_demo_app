@@ -12,9 +12,12 @@ import io.ktor.http.takeFrom
 abstract class RemoteApi(
     private val domain: String
 ) {
-    protected suspend fun HttpClient.fetch(path: String) =
+    protected suspend fun HttpClient.fetch(path: String, list: Map<String, String> = emptyMap()) =
         get {
             url {
+                list.takeIf { it.isNotEmpty() }?.forEach {
+                    parameters.append(it.key, it.value)
+                }
                 accept(ContentType.Application.Json)
                 takeFrom(domain)
                 encodedPath = path

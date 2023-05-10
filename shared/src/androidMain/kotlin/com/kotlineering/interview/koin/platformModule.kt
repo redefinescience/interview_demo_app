@@ -7,7 +7,6 @@ import io.ktor.client.engine.HttpClientEngine
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import io.ktor.client.engine.android.Android
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 actual fun platformModule() = module {
@@ -16,7 +15,7 @@ actual fun platformModule() = module {
         Android.create()
     }
 
-    single<SqlDriver>(named("runtime")) {
+    single<SqlDriver> {
         AndroidSqliteDriver(
             schema = Database.Schema,
             context = get(),

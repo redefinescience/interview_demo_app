@@ -28,9 +28,9 @@ fun commonModule() = module {
     }
 
     // SqlDelight DB
-    single(named("runtime")) {
+    single {
         Database(
-            driver = get(named("runtime"))
+            driver = get()
         )
     }
 

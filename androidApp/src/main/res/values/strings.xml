@@ -14,6 +14,9 @@
     <string name="dev_opt_malformed">Malformed</string>
     <string name="dev_opt_runtime_error">Runtime Error</string>
 
+    <string name="new_todo">New</string>
+    <string name="my_todos">My TODO</string>
+
     <plurals name="num_shares">
         <item quantity="one">%d Share</item>
         <item quantity="other">%d Shares</item>

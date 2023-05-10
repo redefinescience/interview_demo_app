@@ -1,3 +1,36 @@
+CREATE TABLE Todos(
+    id INTEGER NOT NULL PRIMARY KEY,
+    userId INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    completed INTEGER NOT NULL,
+    sequence INTEGER NOT NULL
+);
+
+upsertTodo:
+    INSERT OR REPLACE INTO Todos(
+        id, userId, title, completed, sequence
+    ) VALUES (?, ?, ?, ?, ?);
+
+getTodos:
+    SELECT * FROM Todos
+        WHERE Todos.userId = ?
+        AND Todos.completed <= ?
+        ORDER BY Todos.sequence;
+
+getLowestTodoSequence:
+    SELECT sequence FROM Todos
+    ORDER BY Todos.sequence
+        LIMIT 1;
+
+getGreatestTodoId:
+    SELECT id FROM Todos
+    ORDER BY Todos.id DESC
+        LIMIT 1;
+
+clearTodos:
+    DELETE FROM Todos
+        WHERE Todos.userId = ?;
+
 CREATE TABLE Portfolio(
     name TEXT NOT NULL PRIMARY KEY,
     size INTEGER NOT NULL,

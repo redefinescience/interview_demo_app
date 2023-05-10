@@ -11,6 +11,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration? = null) = startKoin {
     modules(
         platformModule(),
         commonModule(),
-        stocksModule()
+        stocksModule(),
+        todoModule()
     )
 }

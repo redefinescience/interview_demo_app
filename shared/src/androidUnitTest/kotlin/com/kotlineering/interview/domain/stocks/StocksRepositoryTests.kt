@@ -1,4 +1,4 @@
-package com.kotlineering.interview.domain.stocks.repository
+package com.kotlineering.interview.domain.stocks
 
 import com.kotlineering.interview.TestComponents
 import com.kotlineering.interview.db.Database
@@ -6,10 +6,6 @@ import com.kotlineering.interview.db.GetStocks
 import com.kotlineering.interview.domain.ApiResult
 import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
-import com.kotlineering.interview.domain.stocks.StockResult
-import com.kotlineering.interview.domain.stocks.StocksApi
-import com.kotlineering.interview.domain.stocks.StocksRepository
-import com.kotlineering.interview.domain.stocks.StocksResult
 import kotlin.test.assertTrue
 import kotlin.test.expect
 import kotlinx.coroutines.runBlocking
@@ -88,9 +84,8 @@ class StocksRepositoryTests {
 
     @Test
     fun `when devOpt empty enabled, should get empty list`() = runBlocking {
-        val devOpts = DeveloperRepository()
-        val repository = getMockRepository(devOpts = devOpts)
-        devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.EMPTY)
+        val repository = getMockRepository()
+        repository.dev.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.EMPTY)
         expect(ServiceState.Done) {
             repository.refreshPortfolio("")
         }
@@ -102,9 +97,8 @@ class StocksRepositoryTests {
     @Test
     fun `when devOpt malformed enabled, should return Api error and get empty list`() =
         runBlocking {
-            val devOpts = DeveloperRepository()
-            val repository = getMockRepository(devOpts = devOpts)
-            devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.MALFORMED)
+            val repository = getMockRepository()
+            repository.dev.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.MALFORMED)
             assertTrue {
                 repository.refreshPortfolio("") is ServiceState.Error.Api
             }
@@ -116,9 +110,8 @@ class StocksRepositoryTests {
     @Test
     fun `when devOpt runtime error enabled, should return runtime error and get empty list`() =
         runBlocking {
-            val devOpts = DeveloperRepository()
-            val repository = getMockRepository(devOpts = devOpts)
-            devOpts.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR)
+            val repository = getMockRepository()
+            repository.dev.setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR)
             assertTrue {
                 repository.refreshPortfolio("") is ServiceState.Error.Runtime
             }

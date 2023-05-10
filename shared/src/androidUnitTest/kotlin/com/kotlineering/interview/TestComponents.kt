@@ -3,6 +3,7 @@ package com.kotlineering.interview
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.kotlineering.interview.db.Database
 import com.kotlineering.interview.domain.stocks.StocksApi
+import com.kotlineering.interview.domain.todo.ToDoApi
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.engine.cio.endpoint
@@ -43,5 +44,6 @@ class TestComponents {
         }
 
         fun getStocksApi() = StocksApi(getClient(), "https://storage.googleapis.com/")
+        fun getTodoApi() = ToDoApi(getClient(), "https://jsonplaceholder.typicode.com/")
     }
 }

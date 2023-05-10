@@ -20,7 +20,7 @@ fun stocksModule() = module {
     single {
         StocksRepository(
             api = get(),
-            db = get(named("runtime")),
+            db = get(),
             dev = get()
         )
     }

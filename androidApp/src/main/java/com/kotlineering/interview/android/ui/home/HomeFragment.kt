@@ -9,11 +9,11 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlineering.interview.android.BuildConfig
-import com.kotlineering.interview.android.databinding.FragmentStocksHomeBinding
+import com.kotlineering.interview.android.databinding.FragmentHomeBinding
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 
 abstract class HomeFragment : Fragment() {
-    private var _binding: FragmentStocksHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     protected val binding get() = _binding!!
 
     protected abstract fun createAdapters(): RecyclerView.Adapter<*>
@@ -25,7 +25,7 @@ abstract class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStocksHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // Setup recycler
         binding.recycler.adapter = createAdapters()

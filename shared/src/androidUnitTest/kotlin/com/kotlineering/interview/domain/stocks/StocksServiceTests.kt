@@ -3,7 +3,6 @@ package com.kotlineering.interview.domain.stocks
 import com.kotlineering.interview.TestComponents
 import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
-import com.kotlineering.interview.domain.stocks.repository.StocksRepositoryTests
 import kotlin.test.assertTrue
 import kotlin.test.expect
 import kotlinx.coroutines.Dispatchers
