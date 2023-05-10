@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Stocks_App"
+rootProject.name = "Interview_App"
 include(":androidApp")
 include(":shared")

@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.kotlineering.stocksapp.android"
+    namespace = "com.kotlineering.interview.android"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.kotlineering.stocksapp.android"
+        applicationId = "com.kotlineering.interview.android"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

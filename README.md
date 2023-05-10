@@ -21,14 +21,14 @@ Should open and run from Android Studio.
 Stack of components
 
 [(/androidApp)](/androidApp)
-- [MainActivity](/androidApp/src/main/java/com/kotlineering/stocksapp/android/MainActivity.kt) ->
-- [HomeFragment](/androidApp/src/main/java/com/kotlineering/stocksapp/android/ui/home/HomeFragment.kt) ->
-- [HomeViewModel](/androidApp/src/main/java/com/kotlineering/stocksapp/android/ui/home/HomeViewModel.kt) ->
+- [MainActivity](/androidApp/src/main/java/com/kotlineering/interview/android/MainActivity.kt) ->
+- [HomeFragment](/androidApp/src/main/java/com/kotlineering/interview/android/ui/stockshome/HomeFragment.kt) ->
+- [HomeViewModel](/androidApp/src/main/java/com/kotlineering/interview/android/ui/stockshome/HomeViewModel.kt) ->
 
 [(/shared)](/shared)
-- [StocksService](/shared/src/commonMain/kotlin/com/kotlineering/stocksapp/domain/stocks/StocksService.kt) ->
-- [StocksRepository](/shared/src/commonMain/kotlin/com/kotlineering/stocksapp/domain/stocks/repository/StocksRepository.kt) ->
-- [StocksApi](/shared/src/commonMain/kotlin/com/kotlineering/stocksapp/domain/stocks/repository/remote/StocksApi.kt)
+- [StocksService](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks/StocksService.kt) ->
+- [StocksRepository](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks/repository/StocksRepository.kt) ->
+- [StocksApi](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks/repository/remote/StocksApi.kt)
 
 There is also dev settings (code can be found weaved into the above stack, and is present in the UI when the build is DEBUG)
 

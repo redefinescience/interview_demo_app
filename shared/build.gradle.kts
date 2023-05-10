@@ -8,7 +8,7 @@ plugins {
 sqldelight {
     databases {
         create("Database") {
-            packageName.set("com.kotlineering.stocksapp.db")
+            packageName.set("com.kotlineering.interview.db")
         }
     }
 }
@@ -88,7 +88,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.kotlineering.stocksapp"
+    namespace = "com.kotlineering.interview"
     compileSdk = 33
     defaultConfig {
         minSdk = 21

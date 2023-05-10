@@ -3,11 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_stocks_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_stocks_home"
         android:label="@string/navigation_home"
-        android:name="com.kotlineering.stocksapp.android.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.kotlineering.interview.android.ui.stockshome.StocksHomeFragment"
+        tools:layout="@layout/fragment_stocks_home" />
+
+    <fragment
+        android:id="@+id/nav_todo_home"
+        android:label="@string/navigation_home"
+        android:name="com.kotlineering.interview.android.ui.todohome.TodoHomeFragment"
+        tools:layout="@layout/fragment_stocks_home" />
 </navigation>
