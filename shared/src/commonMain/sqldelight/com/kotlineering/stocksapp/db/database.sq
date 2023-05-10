@@ -1,0 +1,69 @@
+CREATE TABLE Portfolio(
+    name TEXT NOT NULL PRIMARY KEY,
+    size INTEGER NOT NULL,
+    update_timestamp INTEGER NOT NULL
+);
+
+CREATE TABLE Stocks(
+    ticker TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    currency TEXT NOT NULL,
+    current_price_cents INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    current_price_timestamp INTEGER NOT NULL,
+    update_timestamp INTEGER NOT NULL
+);
+
+CREATE TABLE PortfolioStocks(
+    name TEXT NOT NULL,
+    ticker TEXT NOT NULL,
+    sequence INTEGER NOT NULL,
+    PRIMARY KEY(name, ticker),
+    FOREIGN KEY(name) REFERENCES Portfolio(name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY(ticker) REFERENCES Stocks(ticker)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+upsertStock:
+    INSERT OR REPLACE INTO Stocks(
+        ticker,
+        name,
+        currency,
+        current_price_cents,
+        quantity,
+        current_price_timestamp,
+        update_timestamp
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?
+    );
+
+upsertPortfolio:
+    INSERT OR REPLACE INTO Portfolio(
+        name,
+        size,
+        update_timestamp
+    ) VALUES (
+        ?, ?, ?
+    );
+
+getStocks:
+    SELECT * FROM Stocks
+        INNER JOIN PortfolioStocks
+            ON Stocks.ticker = PortfolioStocks.ticker
+        WHERE PortfolioStocks.name = ?
+        ORDER BY PortfolioStocks.sequence;
+
+clearPortfolioStocks:
+    DELETE FROM PortfolioStocks WHERE name = ?;
+
+upsertPortfolioStock:
+    INSERT OR REPLACE INTO PortfolioStocks(
+        name,
+        ticker,
+        sequence
+    ) VALUES (
+        ?, ?, ?
+    );
