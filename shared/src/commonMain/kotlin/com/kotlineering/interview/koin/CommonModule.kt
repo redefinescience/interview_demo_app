@@ -2,9 +2,6 @@ package com.kotlineering.interview.koin
 
 import com.kotlineering.interview.db.Database
 import com.kotlineering.interview.domain.developer.DeveloperRepository
-import com.kotlineering.interview.domain.stocks.StocksService
-import com.kotlineering.interview.domain.stocks.StocksRepository
-import com.kotlineering.interview.domain.stocks.StocksApi
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -31,33 +28,9 @@ fun commonModule() = module {
     }
 
     // SqlDelight DB
-    single {
+    single(named("runtime")) {
         Database(
-            driver = get()
-        )
-    }
-
-    // Stocks Domain
-    single(named("stocks-api-domain")) {
-        "https://storage.googleapis.com/"
-    }
-    single {
-        StocksApi(
-            client = get(),
-            domain = get(named("stocks-api-domain"))
-        )
-    }
-    single {
-        StocksRepository(
-            api = get(),
-            db = get(),
-            dev = get()
-        )
-    }
-    single {
-        StocksService(
-            repository = get(),
-            dispatcher = get()
+            driver = get(named("runtime"))
         )
     }
 

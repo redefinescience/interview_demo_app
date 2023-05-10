@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/nav_stocks_home"
         android:label="@string/navigation_home"
-        android:name="com.kotlineering.interview.android.ui.stockshome.StocksHomeFragment"
+        android:name="com.kotlineering.interview.android.ui.stocks.StocksHomeFragment"
         tools:layout="@layout/fragment_stocks_home" />
 
     <fragment
         android:id="@+id/nav_todo_home"
         android:label="@string/navigation_home"
-        android:name="com.kotlineering.interview.android.ui.todohome.TodoHomeFragment"
+        android:name="com.kotlineering.interview.android.ui.todo.ToDoHomeFragment"
         tools:layout="@layout/fragment_stocks_home" />
 </navigation>

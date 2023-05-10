@@ -9,14 +9,11 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class StocksServiceTests {
 
-    private val service by lazy {
-        StocksService(
+    companion object {
+        fun getService() = StocksService(
             StocksRepositoryTests.getRepository(),
             Dispatchers.Default
         )
@@ -24,6 +21,7 @@ class StocksServiceTests {
 
     @Test
     fun `golden path should emit golden path stuff`() = runBlocking {
+        val service = getService()
         assertTrue {
             service.getStocks().take(1).toList()[0].isEmpty()
         }

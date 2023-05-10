@@ -9,7 +9,8 @@ expect fun platformModule(): Module
 fun initKoin(appDeclaration: KoinAppDeclaration? = null) = startKoin {
     appDeclaration?.invoke(this)
     modules(
+        platformModule(),
         commonModule(),
-        platformModule()
+        stocksModule()
     )
 }

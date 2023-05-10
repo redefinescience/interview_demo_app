@@ -1,4 +1,24 @@
-Initial design plan.
+
+2023-05-10
+New interview prompt from -REDACTED-
+- Genericize app, remove reference to -REDACTED-, move stocks specific to /stocks
+- Update readme
+- Will reuse main recycler
+- Will introduce auth-state. For simplicity, userId will be open-ended string that is created at login screen (and may be persisted in db records)
+- New header: Status, UserId, Refresh, DevOpts
+- New Dialog Fragment: New/Edit
+- Reorder-list support. Table: UserId, ElementId, Sequence. 
+- onItemMoved(): Re-order element list, send to service to create a new Sequence list.
+
+2023-04-28
+UPDATE. (Final submission to -REDACTED-)
+- Will split repository into two layers: a "use-case"-like layer called StocksService
+- Will add debug repository/service to control whether we call the alternative endpoints.
+- Did not unittest view level.
+- Did not implement auto-refresh on fragment re-reaction (only on viewmodel creation)
+
+2023-04-26
+Initial design plan. (Take-Home Prompt by -REDACTED-)
 
 Overall Design/Arch considerations:
 - Implement MVVM, with persistence in the repository. Rationale: Considered to be best for modern Android. (... and personally, the best for any app)
@@ -59,7 +79,5 @@ Action Plan:
 
 - Make the UI look nice.
 
-UPDATE:
-- Will split repository into two layers: a "use-case"-like layer called StocksService
-- Will add debug repository/service to control whether we call the alternative endpoints.
+
 

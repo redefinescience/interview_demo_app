@@ -1,6 +1,6 @@
 package com.kotlineering.interview.android.koin
 
-import com.kotlineering.interview.android.ui.stockshome.StocksViewModel
+import com.kotlineering.interview.android.ui.stocks.StocksViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

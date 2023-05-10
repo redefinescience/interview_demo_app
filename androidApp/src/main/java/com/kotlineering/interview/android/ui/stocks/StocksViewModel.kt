@@ -1,4 +1,4 @@
-package com.kotlineering.interview.android.ui.stockshome
+package com.kotlineering.interview.android.ui.stocks
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

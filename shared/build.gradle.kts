@@ -63,7 +63,8 @@ kotlin {
             dependsOn(commonTest)
             dependencies {
                 implementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-                implementation("org.robolectric:robolectric:4.9")
+                implementation("io.ktor:ktor-client-cio:2.2.4")
+                implementation("app.cash.sqldelight:sqlite-driver:2.0.0-alpha05")
             }
         }
         val iosX64Main by getting

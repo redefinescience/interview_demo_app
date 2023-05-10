@@ -1,19 +1,14 @@
-package com.kotlineering.interview.android.ui.todohome
+package com.kotlineering.interview.android.ui.todo
 
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlineering.interview.android.ui.home.HomeFragment
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TodoHomeViewModel(
-    val developerRepository: DeveloperRepository
-) : ViewModel()
+class ToDoHomeFragment : HomeFragment() {
 
-class TodoHomeFragment : HomeFragment() {
-
-    private val viewModel: TodoHomeViewModel by viewModel()
+    private val viewModel: ToDoHomeViewModel by viewModel()
 
     override fun createAdapters(): RecyclerView.Adapter<*> = ConcatAdapter(
 
