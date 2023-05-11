@@ -48,11 +48,11 @@ class ToDoRepository(
         timeStamp: Long
     ) = db.tryTransaction {
         db.databaseQueries.upsertTodo(
-            id = db.databaseQueries.getGreatestTodoId().executeAsOne() + 1,
+            id = (db.databaseQueries.getGreatestTodoId().executeAsOneOrNull() ?: 0) + 1,
             userId = todo.userId,
             title = todo.title,
             completed = todo.completed,
-            sequence = db.databaseQueries.getLowestTodoSequence().executeAsOne() - 1
+            sequence = (db.databaseQueries.getLowestTodoSequence().executeAsOneOrNull() ?: 0) - 1
         )
     }
 
