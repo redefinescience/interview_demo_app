@@ -17,8 +17,8 @@ class ToDoHomeViewModel(
     val developerRepository: DeveloperRepository
 ) : ViewModel() {
 
-    private val mutableRefreshing = MutableLiveData(false)
-    val refreshing = mutableRefreshing.distinctUntilChanged()
+    private val mutableBusy = MutableLiveData(false)
+    val busy = mutableBusy.distinctUntilChanged()
 
     private val mutableError = MutableLiveData<ServiceState.Error?>(null)
     val error = mutableError.distinctUntilChanged()
@@ -33,7 +33,7 @@ class ToDoHomeViewModel(
     fun removeTodo(id: Long) = viewModelScope.launch {
         mutableError.postValue(null)
         service.removeTodo(id).collect {
-            mutableRefreshing.postValue(it is ServiceState.Busy)
+            mutableBusy.postValue(it is ServiceState.Busy)
             mutableError.postValue(it.takeIf { it is ServiceState.Error } as ServiceState.Error?)
         }
     }
@@ -41,7 +41,7 @@ class ToDoHomeViewModel(
     fun updateTodoList(todos: List<Todos>) = viewModelScope.launch {
         mutableError.postValue(null)
         service.updateTodoList(todos).collect {
-            mutableRefreshing.postValue(it is ServiceState.Busy)
+            mutableBusy.postValue(it is ServiceState.Busy)
             mutableError.postValue(it.takeIf { it is ServiceState.Error } as ServiceState.Error?)
         }
     }
@@ -49,7 +49,7 @@ class ToDoHomeViewModel(
     fun refresh() = viewModelScope.launch {
         mutableError.postValue(null)
         service.refreshTodoList().collect {
-            mutableRefreshing.postValue(it is ServiceState.Busy)
+            mutableBusy.postValue(it is ServiceState.Busy)
             mutableError.postValue(it.takeIf { it is ServiceState.Error } as ServiceState.Error?)
         }
     }

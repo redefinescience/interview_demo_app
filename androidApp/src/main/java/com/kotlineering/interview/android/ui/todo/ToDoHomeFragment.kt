@@ -45,7 +45,7 @@ class ToDoHomeFragment : HomeFragment() {
                 viewModel.refresh()
             }
 
-            viewModel.refreshing.observe(viewLifecycleOwner) {
+            viewModel.busy.observe(viewLifecycleOwner) {
                 refreshEnabled = !it
             }
 

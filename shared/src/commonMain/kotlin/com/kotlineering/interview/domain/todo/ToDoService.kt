@@ -51,7 +51,7 @@ class ToDoService(
         )
     }.flowOn(dispatcher)
 
-    fun updateTodoList(todos: List<Todos>): Flow<ServiceState> = flow<ServiceState> {
+    fun updateTodoList(todos: List<Todos>): Flow<ServiceState> = flow {
         emit(ServiceState.Busy)
         emit(
             repository.updateTodoList(
