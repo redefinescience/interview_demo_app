@@ -9,9 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.kotlineering.interview.db.Todos
 import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
-import com.kotlineering.interview.domain.todo.ToDoRepository
 import com.kotlineering.interview.domain.todo.ToDoService
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ToDoHomeViewModel(
