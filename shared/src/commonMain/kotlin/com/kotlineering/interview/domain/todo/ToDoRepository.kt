@@ -2,7 +2,6 @@ package com.kotlineering.interview.domain.todo
 
 import com.kotlineering.interview.db.Database
 import com.kotlineering.interview.db.Todos
-import com.kotlineering.interview.domain.ApiResult
 import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 import com.kotlineering.interview.domain.toServiceState
@@ -34,6 +33,10 @@ class ToDoRepository(
         }
     }
 
+    private fun deleteTodo(id: Long) = db.tryTransaction {
+        db.databaseQueries.deleteTodo(id)
+    }
+
     private fun updateTodoItem(
         todo: Todos,
         timeStamp: Long
@@ -60,16 +63,15 @@ class ToDoRepository(
         todo: Todos,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
     ) = updateTodoItem(todo, timeStamp).toServiceState {
-        // Upload to server
-        ServiceState.Done
+        // Update on server
+        api.updateTodo(todo).toServiceState()
     }
 
     suspend fun newTodo(
         todo: Todos,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
     ) = insertNewTodo(todo, timeStamp).toServiceState {
-        // Upload to server
-        ServiceState.Done
+        api.newTodo(todo).toServiceState()
     }
 
     suspend fun updateTodoList(
@@ -77,34 +79,25 @@ class ToDoRepository(
         todos: List<Todos>,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
     ) = updateTodos(userId, todos, timeStamp).toServiceState {
-        // Remote Update
-        ServiceState.Done
-    }
-
-    private fun deleteTodo(id: Long) = db.tryTransaction {
-        db.databaseQueries.deleteTodo(id)
+        // Update to server
+        // Make a fake call to simulate network request being made
+        // to server to indicate the order has been changed..
+        api.getTodos(1).toServiceState()
     }
 
     suspend fun removeTodo(
         id: Long
     ) = deleteTodo(id).toServiceState {
         // Remote delete
-        ServiceState.Done
+        api.deleteTodo(id).toServiceState()
     }
 
     suspend fun refreshTodoList(
         userId: Long,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
-    ) = when (
-        val result = api.getTodos(userId)
-    ) {
-        is ApiResult.Error -> ServiceState.Error.Api(result.error)
-        is ApiResult.Exception -> ServiceState.Error.Network(
-            result.throwable.message ?: result.throwable.toString()
-        )
-
-        is ApiResult.Success -> updateTodos(
-            userId, result.data.mapIndexed { i, it ->
+    ) = api.getTodos(userId).toServiceState { data ->
+        updateTodos(
+            userId, data.mapIndexed { i, it ->
                 Todos(
                     id = it.id,
                     userId = userId,

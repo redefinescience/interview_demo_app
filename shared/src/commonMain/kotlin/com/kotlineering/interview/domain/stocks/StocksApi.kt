@@ -26,14 +26,14 @@ class StocksApi(
 ) : RemoteApi(domain) {
 
     suspend fun getStocks() = ApiResult.call<StocksResult> {
-        client.fetch("cash-homework/cash-stocks-api/portfolio.json")
+        client.get("cash-homework/cash-stocks-api/portfolio.json")
     }
 
     suspend fun getStocksEmpty() = ApiResult.call<StocksResult> {
-        client.fetch("cash-homework/cash-stocks-api/portfolio_empty.json")
+        client.get("cash-homework/cash-stocks-api/portfolio_empty.json")
     }
 
     suspend fun getStocksMalformed() = ApiResult.call<StocksResult> {
-        client.fetch("cash-homework/cash-stocks-api/portfolio_malformed.json")
+        client.get("cash-homework/cash-stocks-api/portfolio_malformed.json")
     }
 }

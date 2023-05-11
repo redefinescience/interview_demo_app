@@ -18,7 +18,7 @@ fun Database.tryTransaction(call: () -> Unit) = this.transactionWithResult {
     }
 }
 
-fun TryTransactionResult.toServiceState(onDone: (() -> ServiceState)? = null) = result?.let {
+suspend fun TryTransactionResult.toServiceState(onDone: (suspend () -> ServiceState)? = null) = result?.let {
     // There was an exception during DB update
     ServiceState.Error.Runtime(it.message.orEmpty())
 } ?: onDone?.invoke() ?: ServiceState.Done

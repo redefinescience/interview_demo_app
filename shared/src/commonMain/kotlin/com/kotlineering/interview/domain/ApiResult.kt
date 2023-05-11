@@ -27,3 +27,11 @@ sealed interface ApiResult<out T> {
         }
     }
 }
+
+suspend fun <T> ApiResult<T>.toServiceState(onDone: (suspend (data: T) -> ServiceState)? = null) = when(this) {
+    is ApiResult.Error -> ServiceState.Error.Api(this.error)
+    is ApiResult.Exception -> ServiceState.Error.Network(
+        this.throwable.message ?: this.throwable.toString()
+    )
+    is ApiResult.Success -> onDone?.invoke(this.data) ?: ServiceState.Done
+}

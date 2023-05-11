@@ -56,23 +56,13 @@ class StocksRepository(
     suspend fun refreshPortfolio(
         portfolio: String,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
-    ) = when (
-        // Call appropriate endpoint based on dev mode
-        val result = when (dev.stocksRefreshMode) {
-            DeveloperRepository.RefreshStocksMode.MALFORMED -> api.getStocksMalformed()
-            DeveloperRepository.RefreshStocksMode.EMPTY -> api.getStocksEmpty()
-            else -> api.getStocks()
-        }
-    ) {
-        // Error with endpoint or payload
-        is ApiResult.Error -> ServiceState.Error.Api(result.error)
-        // An exception was thrown while calling remote api
-        is ApiResult.Exception -> ServiceState.Error.Network(
-            result.throwable.message ?: result.throwable.toString()
-        )
-        // Good, try to update the DB.
-        is ApiResult.Success -> updatePortfolio(
-            portfolio, result.data.stocks, timeStamp
+    ) = when (dev.stocksRefreshMode) {
+        DeveloperRepository.RefreshStocksMode.MALFORMED -> api.getStocksMalformed()
+        DeveloperRepository.RefreshStocksMode.EMPTY -> api.getStocksEmpty()
+        else -> api.getStocks()
+    }.toServiceState { data ->
+        updatePortfolio(
+            portfolio, data.stocks, timeStamp
         ).toServiceState()
     }
 }

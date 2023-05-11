@@ -18,7 +18,6 @@ class ToDoService(
     private val repository: ToDoRepository,
     private val dispatcher: CoroutineDispatcher
 ) {
-
     fun getTodos(completed: Boolean): Flow<List<Todos>> = repository.db.databaseQueries.getTodos(
         DEFAULT_USERID, if (completed) {
             1
