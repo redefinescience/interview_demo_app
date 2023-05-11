@@ -16,6 +16,9 @@
 
     <string name="new_todo">New</string>
     <string name="my_todos">My TODO</string>
+    <string name="completed">Completed</string>
+    <string name="show_completed">Show Completed</string>
+    <string name="save">Save</string>
 
     <plurals name="num_shares">
         <item quantity="one">%d Share</item>

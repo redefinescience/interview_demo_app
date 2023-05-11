@@ -14,23 +14,8 @@ class ToDoRepository(
     internal val db: Database,
     internal val dev: DeveloperRepository
 ) {
-
-    private fun updateTodoSequences(
-        todos: List<Todos>, timeStamp: Long
-    ) = db.tryTransaction {
-        todos.forEachIndexed { i, it ->
-            db.databaseQueries.upsertTodo(
-                id = it.id,
-                userId = it.userId,
-                title = it.title,
-                completed = it.completed,
-                sequence = i.toLong()
-            )
-        }
-    }
-
-    private fun updateTodoListOrder(
-        userId: Long, todos: List<ToDoResult>, timeStamp: Long
+    private fun updateTodos(
+        userId: Long, todos: List<Todos>, timeStamp: Long
     ) = db.tryTransaction {
         db.databaseQueries.clearTodos(userId)
         todos.forEachIndexed { i, it ->
@@ -38,11 +23,7 @@ class ToDoRepository(
                 id = it.id,
                 userId = userId,
                 title = it.title,
-                completed = if (it.completed) {
-                    1
-                } else {
-                    0
-                },
+                completed = it.completed,
                 sequence = i.toLong()
             )
         }
@@ -54,7 +35,8 @@ class ToDoRepository(
     }
 
     private fun updateTodoItem(
-        todo: Todos
+        todo: Todos,
+        timeStamp: Long
     ) = db.tryTransaction {
         db.databaseQueries.upsertTodo(
             todo.id, todo.userId, todo.title, todo.completed, todo.sequence
@@ -74,20 +56,10 @@ class ToDoRepository(
         )
     }
 
-    fun getTodoList(
-        userId: Long,
-        completed: Boolean = false
-    ) = db.databaseQueries.getTodos(
-        userId, if (completed) {
-            1
-        } else {
-            0
-        }
-    )
-
     suspend fun updateTodo(
-        todo: Todos
-    ) = updateTodoItem(todo).toServiceState {
+        todo: Todos,
+        timeStamp: Long = Clock.System.now().toEpochMilliseconds()
+    ) = updateTodoItem(todo, timeStamp).toServiceState {
         // Upload to server
         ServiceState.Done
     }
@@ -100,9 +72,11 @@ class ToDoRepository(
         ServiceState.Done
     }
 
-    suspend fun updateTodoListOrder(
-        todos: List<Todos>, timeStamp: Long = Clock.System.now().toEpochMilliseconds()
-    ) = updateTodoSequences(todos, timeStamp).toServiceState {
+    suspend fun updateTodoList(
+        userId: Long,
+        todos: List<Todos>,
+        timeStamp: Long = Clock.System.now().toEpochMilliseconds()
+    ) = updateTodos(userId, todos, timeStamp).toServiceState {
         // Remote Update
         ServiceState.Done
     }
@@ -118,8 +92,20 @@ class ToDoRepository(
             result.throwable.message ?: result.throwable.toString()
         )
 
-        is ApiResult.Success -> updateTodoListOrder(
-            userId, result.data, timeStamp
+        is ApiResult.Success -> updateTodos(
+            userId, result.data.mapIndexed { i, it ->
+                Todos(
+                    id = it.id,
+                    userId = userId,
+                    title = it.title,
+                    completed = if (it.completed) {
+                        1
+                    } else {
+                        0
+                    },
+                    sequence = i.toLong()
+                )
+            }, timeStamp
         ).toServiceState()
     }
 }

@@ -2,6 +2,8 @@ package com.kotlineering.interview.domain.todo
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.kotlineering.interview.db.Todos
 import com.kotlineering.interview.domain.ServiceState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,9 +19,16 @@ class ToDoService(
     private val dispatcher: CoroutineDispatcher
 ) {
 
-    fun getTodos(completed: Boolean): Flow<List<Todos>> = repository.getTodoList(
-        DEFAULT_USERID, completed
+    fun getTodos(completed: Boolean): Flow<List<Todos>> = repository.db.databaseQueries.getTodos(
+        DEFAULT_USERID, if (completed) {
+            1
+        } else {
+            0
+        }
     ).asFlow().mapToList(dispatcher).distinctUntilChanged().flowOn(dispatcher)
+
+    fun getTodo(id: Long): Flow<Todos?> = repository.db.databaseQueries.getTodo(id)
+        .asFlow().mapToOneOrNull(dispatcher).distinctUntilChanged().flowOn(dispatcher)
 
     fun refreshTodoList(): Flow<ServiceState> = flow {
         emit(ServiceState.Busy)
