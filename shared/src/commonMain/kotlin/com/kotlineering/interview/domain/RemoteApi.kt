@@ -16,7 +16,7 @@ import io.ktor.http.takeFrom
 // Provide methods to centralize configuration of remote calls
 // (eg: setting base domain, configuring Content-Type, etc...)
 abstract class RemoteApi(
-    val domain: String
+    protected val domain: String
 ) {
     protected suspend fun HttpClient.get(path: String, list: Map<String, String> = emptyMap()) =
         get {
