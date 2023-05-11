@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.kotlineering.interview.android.databinding.DialogFragmentEditBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,6 +46,7 @@ class EditTodoDialogFragment(
         }
 
         viewModel.todo.observe(viewLifecycleOwner) {
+            binding.checkboxComplete.isVisible = it != null
             it?.let {
                 binding.editText.setText(it.title)
                 binding.checkboxComplete.isChecked = it.completed != 0L

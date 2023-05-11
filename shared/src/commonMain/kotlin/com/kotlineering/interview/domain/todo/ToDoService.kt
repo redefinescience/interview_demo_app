@@ -44,6 +44,23 @@ class ToDoService(
         )
     }.flowOn(dispatcher)
 
+    fun removeTodo(id: Long): Flow<ServiceState> = flow {
+        emit(ServiceState.Busy)
+        emit(
+            repository.removeTodo(id)
+        )
+    }.flowOn(dispatcher)
+
+    fun updateTodoList(todos: List<Todos>): Flow<ServiceState> = flow<ServiceState> {
+        emit(ServiceState.Busy)
+        emit(
+            repository.updateTodoList(
+                DEFAULT_USERID,
+                todos
+            )
+        )
+    }.flowOn(dispatcher)
+
     fun updateTodo(todo: Todos): Flow<ServiceState> = flow {
         emit(ServiceState.Busy)
         emit(

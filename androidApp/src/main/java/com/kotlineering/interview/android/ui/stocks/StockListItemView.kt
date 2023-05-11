@@ -4,9 +4,10 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import com.kotlineering.interview.android.R
 import com.kotlineering.interview.android.databinding.ViewStockListItemBinding
+import com.kotlineering.interview.db.GetStocks
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -17,72 +18,47 @@ import java.util.Date
 
 class StockListItemView @JvmOverloads constructor(
     context: Context, attr: AttributeSet? = null, defStyle: Int = 0
-) : ConstraintLayout(context, attr, defStyle) {
+) : FrameLayout(context, attr, defStyle) {
     private val binding = ViewStockListItemBinding.inflate(
         LayoutInflater.from(context), this
     )
 
-    var ticker: CharSequence
-        get() = binding.ticker.text ?: ""
+    var item: GetStocks? = null
         set(v) {
-            binding.ticker.text = v
+            field = v
+            binding.ticker.text = v?.ticker
+            binding.name.text = v?.name
+            binding.date.text = v?.let { dateString(it.current_price_timestamp) }
+            binding.currency.text = v?.currency
+            binding.price.text = v?.let { priceString(it.current_price_cents, it.currency) }
+            binding.quantity.text = v?.quantity?.let { q ->
+                resources.takeIf { q != 0L }?.getQuantityString(
+                    R.plurals.num_shares, q.toInt(), q.toInt()
+                )
+            }
         }
 
-    var name: CharSequence
-        get() = binding.name.text ?: ""
-        set(v) {
-            binding.name.text = v
-        }
-
-    var priceText: CharSequence
-        get() = binding.price.text ?: ""
-        set(v) {
-            binding.price.text = v
-        }
-
-    var currency: CharSequence
-        get() = binding.currency.text ?: ""
-        set(v) {
-            binding.currency.text = v
-        }
-
-    fun setPrice(priceInCents: Long, currency: String) {
-        this.currency = currency
-
-        // TODO: Move this to util file, and unittest it
-        priceText = NumberFormat.getAvailableLocales().find {
+    // TODO: Move this to util file, and unittest it
+    private fun priceString(priceInCents: Long, currency: String) =
+        NumberFormat.getAvailableLocales().find {
             NumberFormat.getCurrencyInstance(it).currency?.currencyCode == currency
         }?.let { currencyLocale ->
             NumberFormat.getCurrencyInstance(currencyLocale).format(priceInCents.toDouble() / 100)
         } ?: "${priceInCents / 100}.${priceInCents % 100} ($currency)"
-    }
 
-    var date: Long = 0
-        set(v) {
-            field = v
-
-            // TODO: Move this to util file, and unittest it
-            binding.date.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(
-                    resources.configuration.locales[0]
-                ).withZone(ZoneId.systemDefault()).format(Instant.ofEpochSecond(v))
+    // TODO: Move this to util file, and unittest it
+    private fun dateString(date: Long) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(
+            resources.configuration.locales[0]
+        ).withZone(ZoneId.systemDefault()).format(Instant.ofEpochSecond(date))
+    } else {
+        SimpleDateFormat(
+            "dd.MM.yyyy HH:mm",
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                resources.configuration.locales[0]
             } else {
-                SimpleDateFormat(
-                    "dd.MM.yyyy HH:mm",
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        resources.configuration.locales[0]
-                    } else {
-                        resources.configuration.locale
-                    }
-                ).format(Date(v))
+                resources.configuration.locale
             }
-        }
-
-    var quantity: Long = 0
-        set(v) {
-            field = v
-            binding.quantity.text = resources.takeIf { v != 0L }?.getQuantityString(
-                R.plurals.num_shares, v.toInt(), v.toInt()
-            )
-        }
+        ).format(Date(date))
+    }
 }

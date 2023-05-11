@@ -31,6 +31,10 @@ clearTodos:
     DELETE FROM Todos
         WHERE Todos.userId = ?;
 
+deleteTodo:
+    DELETE FROM Todos
+        WHERE Todos.id = ?;
+
 getTodo:
     SELECT * FROM Todos
         WHERE Todos.id = ?;

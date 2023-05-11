@@ -81,6 +81,17 @@ class ToDoRepository(
         ServiceState.Done
     }
 
+    private fun deleteTodo(id: Long) = db.tryTransaction {
+        db.databaseQueries.deleteTodo(id)
+    }
+
+    suspend fun removeTodo(
+        id: Long
+    ) = deleteTodo(id).toServiceState {
+        // Remote delete
+        ServiceState.Done
+    }
+
     suspend fun refreshTodoList(
         userId: Long,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()

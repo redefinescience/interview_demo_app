@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import com.kotlineering.interview.db.Todos
 import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 import com.kotlineering.interview.domain.todo.ToDoRepository
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ToDoHomeViewModel(
-    val service: ToDoService,
+    private val service: ToDoService,
     val developerRepository: DeveloperRepository
 ) : ViewModel() {
 
@@ -29,6 +30,22 @@ class ToDoHomeViewModel(
 
     val todos = showCompleted.switchMap { showCompleted ->
         service.getTodos(showCompleted).asLiveData()
+    }
+
+    fun removeTodo(id: Long) = viewModelScope.launch {
+        mutableError.postValue(null)
+        service.removeTodo(id).collect {
+            mutableRefreshing.postValue(it is ServiceState.Busy)
+            mutableError.postValue(it.takeIf { it is ServiceState.Error } as ServiceState.Error?)
+        }
+    }
+
+    fun updateTodoList(todos: List<Todos>) = viewModelScope.launch {
+        mutableError.postValue(null)
+        service.updateTodoList(todos).collect {
+            mutableRefreshing.postValue(it is ServiceState.Busy)
+            mutableError.postValue(it.takeIf { it is ServiceState.Error } as ServiceState.Error?)
+        }
     }
 
     fun refresh() = viewModelScope.launch {

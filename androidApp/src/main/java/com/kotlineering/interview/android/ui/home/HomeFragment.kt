@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlineering.interview.android.BuildConfig
 import com.kotlineering.interview.android.databinding.FragmentHomeBinding
@@ -18,7 +19,7 @@ abstract class HomeFragment : Fragment() {
 
     protected abstract fun createAdapters(): RecyclerView.Adapter<*>
 
-    protected abstract fun getDeveloperRepository() : DeveloperRepository
+    protected abstract fun getDeveloperRepository(): DeveloperRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +29,12 @@ abstract class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // Setup recycler
-        binding.recycler.adapter = createAdapters()
+        binding.recycler.apply {
+            adapter = createAdapters()
+            addItemDecoration(
+                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+            )
+        }
 
         // Dev options
         initDevOptsView(getDeveloperRepository())

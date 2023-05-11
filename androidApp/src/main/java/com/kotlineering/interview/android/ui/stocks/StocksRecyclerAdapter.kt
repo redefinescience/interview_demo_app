@@ -38,14 +38,6 @@ class StocksRecyclerAdapter : ListAdapter<GetStocks, StocksRecyclerAdapter.ViewH
     override fun onBindViewHolder(
         holder: ViewHolder, position: Int
     ) {
-        getItem(position).let { stock ->
-            holder.view.apply {
-                ticker = stock.ticker
-                name = stock.name
-                date = stock.current_price_timestamp
-                setPrice(stock.current_price_cents, stock.currency)
-                quantity = stock.quantity
-            }
-        }
+        holder.view.item = getItem(position)
     }
 }
