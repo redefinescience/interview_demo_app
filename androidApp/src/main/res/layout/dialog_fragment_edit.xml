@@ -8,16 +8,23 @@
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:scrollbars="vertical"
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/checkbox_complete"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkbox_complete"
                 android:layout_width="wrap_content"
@@ -36,6 +43,14 @@
                 app:layout_constraintTop_toBottomOf="@id/checkbox_complete"
                 android:text="@string/save"
                 />
-
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="6pt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_save" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

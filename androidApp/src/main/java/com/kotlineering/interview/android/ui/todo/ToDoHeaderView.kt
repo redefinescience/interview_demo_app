@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kotlineering.interview.android.databinding.ViewTodoHeaderBinding
 
@@ -11,7 +13,7 @@ class ToDoHeaderView @JvmOverloads constructor(
     context: Context, attr: AttributeSet? = null, defStyle: Int = 0
 ) : ConstraintLayout(context, attr, defStyle) {
     private val binding = ViewTodoHeaderBinding.inflate(
-        LayoutInflater.from(context), this
+        LayoutInflater.from(context), this, true
     ).apply {
         refresh.setOnClickListener { if (it.isEnabled) onRefreshClicked?.invoke() }
         devopts.setOnClickListener { onDevOptsClicked?.invoke() }

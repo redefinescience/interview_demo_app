@@ -24,7 +24,7 @@ class ToDoHomeFragment : HomeFragment() {
     override fun getDeveloperRepository(): DeveloperRepository = viewModel.developerRepository
 
     private fun showEdit(id: Long? = null) =
-        EditTodoDialogFragment(id).show(parentFragmentManager, "new-note")
+        EditTodoDialogFragment.newInstance(id).show(parentFragmentManager, "edit-todo")
 
     private fun createHeaderAdapter() = HeaderAdapter(
         ToDoHeaderView(requireContext()).apply {

@@ -14,7 +14,8 @@
     <string name="dev_opt_malformed">Malformed</string>
     <string name="dev_opt_runtime_error">Runtime Error</string>
 
-    <string name="new_todo">New</string>
+    <string name="edit">Edit</string>
+    <string name="new_">New</string>
     <string name="my_todos">My TODO</string>
     <string name="completed">Completed</string>
     <string name="show_completed">Show Completed</string>
