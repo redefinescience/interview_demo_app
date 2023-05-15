@@ -22,6 +22,10 @@ class ToDoApi(
         client.get("todos", mapOf("userId" to userId.toString()))
     }
 
+    suspend fun getTodosEmpty() = ApiResult.call<List<ToDoResult>> {
+        client.get("todos", mapOf("userId" to "99"))
+    }
+
     suspend fun deleteTodo(id: Long) = ApiResult.call<Any?> {
         client.delete("todos/$id")
     }

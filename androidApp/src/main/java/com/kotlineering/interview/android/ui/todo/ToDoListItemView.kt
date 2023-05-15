@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.kotlineering.interview.android.R
 import com.kotlineering.interview.android.databinding.ViewTodoListItemBinding
 import com.kotlineering.interview.db.Todos
 

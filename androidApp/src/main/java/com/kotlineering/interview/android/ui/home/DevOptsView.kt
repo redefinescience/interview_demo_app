@@ -18,24 +18,24 @@ class DevOptsView @JvmOverloads constructor(
         radiogroup.setOnCheckedChangeListener { _, checkedId ->
             onDevOptSelected?.invoke(
                 when (checkedId) {
-                    R.id.devempty -> DeveloperRepository.RefreshStocksMode.EMPTY
-                    R.id.devmalformed -> DeveloperRepository.RefreshStocksMode.MALFORMED
-                    R.id.devruntimeerror -> DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR
-                    else -> DeveloperRepository.RefreshStocksMode.NORMAL
+                    R.id.devempty -> DeveloperRepository.RefreshMode.EMPTY
+                    R.id.devmalformed -> DeveloperRepository.RefreshMode.MALFORMED
+                    R.id.devruntimeerror -> DeveloperRepository.RefreshMode.RUNTIME_ERROR
+                    else -> DeveloperRepository.RefreshMode.NORMAL
                 }
             )
         }
     }
 
-    var onDevOptSelected: ((DeveloperRepository.RefreshStocksMode) -> Unit)? = null
+    var onDevOptSelected: ((DeveloperRepository.RefreshMode) -> Unit)? = null
 
     fun setSelectedDevOpt(
-        opt: DeveloperRepository.RefreshStocksMode
+        opt: DeveloperRepository.RefreshMode
     ) = binding.radiogroup.check(
         when (opt) {
-            DeveloperRepository.RefreshStocksMode.EMPTY -> R.id.devempty
-            DeveloperRepository.RefreshStocksMode.MALFORMED -> R.id.devmalformed
-            DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR -> R.id.devruntimeerror
+            DeveloperRepository.RefreshMode.EMPTY -> R.id.devempty
+            DeveloperRepository.RefreshMode.MALFORMED -> R.id.devmalformed
+            DeveloperRepository.RefreshMode.RUNTIME_ERROR -> R.id.devruntimeerror
             else -> R.id.devnormal
         }
     )

@@ -4,21 +4,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class DeveloperRepository {
-    enum class RefreshStocksMode {
+    enum class RefreshMode {
         NORMAL,
         MALFORMED,
         EMPTY,
         RUNTIME_ERROR
     }
 
-    private var refreshStocksModeFlow = MutableStateFlow(RefreshStocksMode.NORMAL)
+    private var refreshModeFlow = MutableStateFlow(RefreshMode.NORMAL)
 
-    fun setStocksRefreshMode(mode: RefreshStocksMode) {
-        refreshStocksModeFlow.value = mode
+    fun setRefreshMode(mode: RefreshMode) {
+        refreshModeFlow.value = mode
     }
 
-    fun getStocksRefreshMode(): Flow<RefreshStocksMode> = refreshStocksModeFlow
+    fun getRefreshMode(): Flow<RefreshMode> = refreshModeFlow
 
-    val stocksRefreshMode: RefreshStocksMode
-        get() = refreshStocksModeFlow.value
+    val refreshMode: RefreshMode
+        get() = refreshModeFlow.value
 }

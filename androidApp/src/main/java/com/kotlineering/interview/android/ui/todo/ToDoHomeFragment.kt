@@ -9,7 +9,6 @@ import com.kotlineering.interview.android.R
 import com.kotlineering.interview.android.ui.HeaderAdapter
 import com.kotlineering.interview.android.ui.home.HomeFragment
 import com.kotlineering.interview.domain.ServiceState
-import com.kotlineering.interview.domain.developer.DeveloperRepository
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ToDoHomeFragment : HomeFragment() {
@@ -21,10 +20,8 @@ class ToDoHomeFragment : HomeFragment() {
         createListAdapter()
     )
 
-    override fun getDeveloperRepository(): DeveloperRepository = viewModel.developerRepository
-
     private fun showEdit(id: Long? = null) =
-        EditTodoDialogFragment(id).show(parentFragmentManager, "new-note")
+        EditTodoDialogFragment.newInstance(id).show(parentFragmentManager, "edit-todo")
 
     private fun createHeaderAdapter() = HeaderAdapter(
         ToDoHeaderView(requireContext()).apply {
@@ -36,7 +33,7 @@ class ToDoHomeFragment : HomeFragment() {
             if (BuildConfig.DEBUG) {
                 enableDevButton()
                 onDevOptsClicked = {
-                    binding.devopts.visibility = View.VISIBLE
+                    showDevOpts()
                 }
             }
 

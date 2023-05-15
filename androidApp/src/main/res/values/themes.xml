@@ -1,8 +1,58 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorTertiaryContainer">@color/colorTertiaryContainer</item>
+        <item name="colorOnTertiary">@color/colorOnTertiary</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
+
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorContainer">@color/colorSurfaceContainer</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/colorSurfaceInverse</item>
+        <item name="colorOnSurfaceInverse">@color/colorOnSurfaceInverse</item>
+
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorErrorContainer">@color/colorErrorContainer</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorOnErrorContainer">@color/colorErrorContainer</item>
+
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="colorOutlineVariant">@color/colorOutlineVariant</item>
+
+        <item name="android:shadowColor">@color/colorShadow</item>
+        
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.MyApplication.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

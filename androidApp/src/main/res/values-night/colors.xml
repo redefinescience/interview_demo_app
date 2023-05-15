@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#D0BCFF</color>
+    <color name="colorPrimaryContainer">#21005E</color>
+    <color name="colorPrimaryVariant">#D0BCFF</color>
+    <color name="colorOnPrimary">#371E73</color>
+    <color name="colorOnPrimaryContainer">#EADDFF</color>
+    <color name="colorPrimaryInverse">#6750A4</color>
+
+    <color name="colorSecondary">#CCC2DC</color>
+    <color name="colorSecondaryContainer">#4A4458</color>
+    <color name="colorSecondaryVariant">#CCC2DC</color>
+    <color name="colorOnSecondary">#332D41</color>
+    <color name="colorOnSecondaryContainer">#E8DEF8</color>
+
+    <color name="colorTertiary">#EFB8C8</color>
+    <color name="colorTertiaryContainer">#633B48</color>
+    <color name="colorOnTertiary">#492532</color>
+    <color name="colorOnTertiaryContainer">#FFD8E4</color>
+
+    <color name="colorSurface">#141218</color>
+    <color name="colorSurfaceContainer">#211F26</color>
+    <color name="colorSurfaceVariant">#49454F</color>
+    <color name="colorOnSurface">#E6E1E5</color>
+    <color name="colorOnSurfaceVariant">#CAC4D0</color>
+    <color name="colorSurfaceInverse">#E6E1E5</color>
+    <color name="colorOnSurfaceInverse">#313033</color>
+
+
+    <color name="colorBackground">#141218</color>
+    <color name="colorOnBackground">#E6E1E5</color>
+
+    <color name="colorError">#F2B8B5</color>
+    <color name="colorErrorContainer">#8C1D18</color>
+    <color name="colorOnError">#601410</color>
+    <color name="colorOnErrorContainer">#F9DEDC</color>
+
+    <color name="colorOutline">#938F99</color>
+    <color name="colorOutlineVariant">#444746</color>
+
+    <color name="colorShadow">#000000</color>
+
+    <color name="colorSurfaceTint">#D0BCFF</color>
+    <color name="colorScrim">#000000</color>
+</resources>

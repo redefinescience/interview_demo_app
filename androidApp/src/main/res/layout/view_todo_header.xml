@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorSurface">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,29 +26,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/refresh"
+        android:textSize="6pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/new_todo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/error" />
+        app:layout_constraintTop_toBottomOf="@id/error"
+        style="@style/Widget.Material3.Button.TonalButton" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/new_todo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/new_todo"
+        android:text="@string/new_"
+        android:textSize="6pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/show_completed"
         app:layout_constraintStart_toEndOf="@id/refresh"
-        app:layout_constraintTop_toBottomOf="@id/error" />
+        app:layout_constraintTop_toBottomOf="@id/error"
+        style="@style/Widget.Material3.Button.TonalButton" />
 
-    <androidx.appcompat.widget.AppCompatCheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/show_completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +62,7 @@
         app:layout_constraintStart_toEndOf="@id/new_todo"
         app:layout_constraintTop_toBottomOf="@id/error" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/devopts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,4 +71,4 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</merge>
+</androidx.constraintlayout.widget.ConstraintLayout>

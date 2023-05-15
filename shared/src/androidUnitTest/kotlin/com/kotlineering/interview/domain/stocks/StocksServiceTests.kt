@@ -27,7 +27,7 @@ class StocksServiceTests {
                 TestComponents.getStocksApi(),
                 TestComponents.getDatabase(),
                 DeveloperRepository().apply {
-                    setStocksRefreshMode(DeveloperRepository.RefreshStocksMode.EMPTY)
+                    setRefreshMode(DeveloperRepository.RefreshMode.EMPTY)
                 }
             ),
             Dispatchers.Default
