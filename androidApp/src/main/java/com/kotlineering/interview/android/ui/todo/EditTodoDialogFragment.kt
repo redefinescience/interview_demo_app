@@ -56,7 +56,7 @@ class EditTodoDialogFragment : DialogFragment() {
 
         viewModel.todo.observe(viewLifecycleOwner) {
             it?.let {
-                binding.title.text = resources.getText(R.string.edit)
+                binding.editTextContainer.hint = resources.getText(R.string.edit)
                 binding.editText.setText(it.title)
                 binding.checkboxComplete.isChecked = it.completed != 0L
             }

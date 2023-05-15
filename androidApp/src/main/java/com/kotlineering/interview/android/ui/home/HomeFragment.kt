@@ -19,8 +19,6 @@ abstract class HomeFragment : Fragment() {
 
     protected abstract fun createAdapters(): RecyclerView.Adapter<*>
 
-    protected abstract fun getDeveloperRepository(): DeveloperRepository
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,25 +34,10 @@ abstract class HomeFragment : Fragment() {
             )
         }
 
-        // Dev options
-        initDevOptsView(getDeveloperRepository())
-
         return binding.root
     }
 
-    private fun initDevOptsView(developerRepository: DeveloperRepository) = binding.devopts.takeIf {
-        BuildConfig.DEBUG
-    }?.apply {
-        onDevOptSelected = { opt ->
-            developerRepository.setStocksRefreshMode(opt)
-            binding.devopts.visibility = View.GONE
-        }
-
-        developerRepository.getStocksRefreshMode()
-            .asLiveData().distinctUntilChanged().observe(viewLifecycleOwner) {
-                setSelectedDevOpt(it)
-            }
-    }
+    fun showDevOpts() = DevOptsDialogFragment().show(parentFragmentManager, "dev-opts")
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class ToDoHomeViewModel(
     private val service: ToDoService,
-    val developerRepository: DeveloperRepository
 ) : ViewModel() {
 
     private val mutableBusy = MutableLiveData(false)

@@ -20,8 +20,6 @@ class StocksHomeFragment : HomeFragment() {
         createAndInitStocksAdapter()
     )
 
-    override fun getDeveloperRepository(): DeveloperRepository = viewModel.developerRepository
-
     private fun createAndInitStocksAdapter() = StocksRecyclerAdapter().apply {
         viewModel.stocks.observe(viewLifecycleOwner) {
             submitList(it)
@@ -43,7 +41,7 @@ class StocksHomeFragment : HomeFragment() {
             if (BuildConfig.DEBUG) {
                 enableDevButton()
                 onDevOptsClicked = {
-                    binding.devopts.visibility = View.VISIBLE
+                    showDevOpts()
                 }
             }
 

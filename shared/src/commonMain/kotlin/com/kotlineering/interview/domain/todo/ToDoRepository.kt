@@ -2,7 +2,6 @@ package com.kotlineering.interview.domain.todo
 
 import com.kotlineering.interview.db.Database
 import com.kotlineering.interview.db.Todos
-import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 import com.kotlineering.interview.domain.toServiceState
 import com.kotlineering.interview.domain.tryTransaction
@@ -28,7 +27,7 @@ class ToDoRepository(
         }
         // Throw exception if dev options indicate to do so...
         // (done here to test rollback)
-        if (dev.stocksRefreshMode == DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR) {
+        if (dev.refreshMode == DeveloperRepository.RefreshMode.RUNTIME_ERROR) {
             throw Exception("Developer Mode Exception")
         }
     }
@@ -95,7 +94,10 @@ class ToDoRepository(
     suspend fun refreshTodoList(
         userId: Long,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
-    ) = api.getTodos(userId).toServiceState { data ->
+    ) = when (dev.refreshMode) {
+        DeveloperRepository.RefreshMode.EMPTY -> api.getTodosEmpty()
+        else -> api.getTodos(userId)
+    }.toServiceState { data ->
         updateTodos(
             userId, data.mapIndexed { i, it ->
                 Todos(

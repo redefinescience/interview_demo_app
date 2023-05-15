@@ -12,23 +12,23 @@ class DeveloperRepositoryTests {
 
     @Test
     fun `default refresh mode should be normal`() = runBlocking {
-        expect(DeveloperRepository.RefreshStocksMode.NORMAL) {
-            repository.getStocksRefreshMode().firstOrNull()
+        expect(DeveloperRepository.RefreshMode.NORMAL) {
+            repository.getRefreshMode().firstOrNull()
         }
     }
 
     @Test
     fun `when refresh mode is set accessor and flow update`() = runBlocking {
-        repository.setStocksRefreshMode(
-            DeveloperRepository.RefreshStocksMode.MALFORMED
+        repository.setRefreshMode(
+            DeveloperRepository.RefreshMode.MALFORMED
         )
 
-        expect(DeveloperRepository.RefreshStocksMode.MALFORMED) {
-            repository.getStocksRefreshMode().firstOrNull()
+        expect(DeveloperRepository.RefreshMode.MALFORMED) {
+            repository.getRefreshMode().firstOrNull()
         }
 
-        expect(DeveloperRepository.RefreshStocksMode.MALFORMED) {
-            repository.stocksRefreshMode
+        expect(DeveloperRepository.RefreshMode.MALFORMED) {
+            repository.refreshMode
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.kotlineering.interview.domain.stocks
 
 import com.kotlineering.interview.db.Database
-import com.kotlineering.interview.domain.ServiceState
-import com.kotlineering.interview.domain.ApiResult
 import com.kotlineering.interview.domain.developer.DeveloperRepository
 import com.kotlineering.interview.domain.toServiceState
 import com.kotlineering.interview.domain.tryTransaction
@@ -44,7 +42,7 @@ class StocksRepository(
         }
         // Throw exception if dev options indicate to do so...
         // (done here to test rollback)
-        if (dev.stocksRefreshMode == DeveloperRepository.RefreshStocksMode.RUNTIME_ERROR) {
+        if (dev.refreshMode == DeveloperRepository.RefreshMode.RUNTIME_ERROR) {
             throw Exception("Developer Mode Exception")
         }
     }
@@ -56,9 +54,9 @@ class StocksRepository(
     suspend fun refreshPortfolio(
         portfolio: String,
         timeStamp: Long = Clock.System.now().toEpochMilliseconds()
-    ) = when (dev.stocksRefreshMode) {
-        DeveloperRepository.RefreshStocksMode.MALFORMED -> api.getStocksMalformed()
-        DeveloperRepository.RefreshStocksMode.EMPTY -> api.getStocksEmpty()
+    ) = when (dev.refreshMode) {
+        DeveloperRepository.RefreshMode.MALFORMED -> api.getStocksMalformed()
+        DeveloperRepository.RefreshMode.EMPTY -> api.getStocksEmpty()
         else -> api.getStocks()
     }.toServiceState { data ->
         updatePortfolio(

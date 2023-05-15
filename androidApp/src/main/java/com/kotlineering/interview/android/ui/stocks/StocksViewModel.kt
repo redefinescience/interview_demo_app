@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class StocksViewModel(
     private val stocksService: StocksService,
-    val developerRepository: DeveloperRepository
 ) : ViewModel() {
     private val mutableRefreshing = MutableLiveData(false)
     val refreshing = mutableRefreshing.distinctUntilChanged()
