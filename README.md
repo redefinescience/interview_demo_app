@@ -8,7 +8,7 @@ All domain code (repository, networking, persistence, etc..) in common code.
 
 UI is Android specific, with classic Android Views (no Compose.. *frown*)
 
-Detailed design and development plan found in [/DEVPLAN.md](DEVPLAN-STOCKS.md)
+Detailed design and development plan found in [/DEVPLAN.md](DEVPLAN.md)
 
 Tests were implemented in [/shared/src/androidUnitTest](/shared/src/androidUnitTest) even for common code to quickly utilize JVM, so we can use Mockito.
 Instead of this, we could probably modify /shared/src/commonTest to run JVM (or Android too, just no Robolectric allowed..) instead of KNative.

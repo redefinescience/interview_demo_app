@@ -2,6 +2,8 @@
 2023-05-15
 - Decided to not introduce auth-state, far too much scope creep.
 - Move devopts into it's own dialog fragment
+- The ability to re-order the list was limited- it can only work currently when all items are shown. (ie: "Show Completed") is selected. To re-order the list when Completed items are hidden would require mapping logic between the view-list and the full list. This would be the primary functionality improvement to be made given more time.
+- Also, I would have liked to have more complete unit-testing. For this portion of the app, I have only two integration tests: a) fetch from API, store in DB, and fetch from DB (both filtered and unfiltered by "completed" status). b) updating an item in the DB.
 
 2023-05-10
 New interview prompt from -REDACTED-
