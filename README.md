@@ -34,8 +34,24 @@ Domain Layer (shared by Android & iOS)
     - [StocksRepository](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks/StocksRepository.kt) ->
     - [StocksApi](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks/StocksApi.kt)
   + [ToDo App](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/stocks)
+    - [ToDoService](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/todo/ToDoService.kt) ->
+    - [ToDoRepository](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/todo/ToDoRepository.kt) ->
+    - [ToDoApi](/shared/src/commonMain/kotlin/com/kotlineering/interview/domain/todo/ToDoApi.kt)
 
 There is also dev settings (code can be found weaved into the above stack, and is present in the UI when the build is DEBUG)
+
+To switch between the two apps, modify [mobile_navigation.xml](/androidApp/src/main/res/navigation/mobile_navigation.xml), set `app:startDestination` to either `@+id/nav_todo_home` or `@+id/nav_stocks_home`
+
+Usage: StocksApp
+- Launch, and see!
+
+Usage: Todo App
+- Tap "New" to create a new TODO.
+- Swipe items in the list to delete TODOs.
+- Tap "Show Completed" to see all TODOs.
+- When all TODOs are visible, they can be reordered by long-pressing an item then dragging it to its new location.
+- Changes are store locally, but fake remote APIs are called to simulate remote updates.
+- Backend (https://jsonplaceholder.typicode.com/) returns a fixed set, and will reset any local changes made.
 
 Libraries used:
 - Koin for dependency injection.

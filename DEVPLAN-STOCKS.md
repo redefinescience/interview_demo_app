@@ -1,4 +1,8 @@
 
+2023-05-15
+- Decided to not introduce auth-state, far too much scope creep.
+- Move devopts into it's own dialog fragment
+
 2023-05-10
 New interview prompt from -REDACTED-
 - Genericize app, remove reference to -REDACTED-, move stocks specific to /stocks
