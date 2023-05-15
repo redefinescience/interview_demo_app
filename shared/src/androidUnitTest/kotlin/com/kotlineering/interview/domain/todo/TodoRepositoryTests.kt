@@ -1,9 +1,9 @@
-package com.kotlineering.interview.domain
+package com.kotlineering.interview.domain.todo
 
 import com.kotlineering.interview.TestComponents
 import com.kotlineering.interview.db.Todos
+import com.kotlineering.interview.domain.ServiceState
 import com.kotlineering.interview.domain.developer.DeveloperRepository
-import com.kotlineering.interview.domain.todo.ToDoRepository
 import kotlin.test.Test
 import kotlin.test.assertTrue
 import kotlin.test.expect
