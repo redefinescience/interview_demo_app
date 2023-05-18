@@ -7,6 +7,7 @@
     <string name="error_runtime">The application encountered an error.</string>
     <string name="error_api">There was an error with the server response.</string>
     <string name="refresh">Refresh</string>
+    <string name="search">Search</string>
 
     <string name="developer_options">DevOpts</string>
     <string name="dev_opt_normal">Normal</string>

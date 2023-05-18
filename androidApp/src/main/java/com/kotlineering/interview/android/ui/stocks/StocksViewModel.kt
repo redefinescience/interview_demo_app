@@ -4,13 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import com.kotlineering.interview.db.GetStocks
 import com.kotlineering.interview.domain.ServiceState
-import com.kotlineering.interview.domain.developer.DeveloperRepository
 import com.kotlineering.interview.domain.stocks.StocksService
 import kotlinx.coroutines.launch
 
-class StocksViewModel(
+open class StocksViewModel(
     private val stocksService: StocksService,
 ) : ViewModel() {
     private val mutableRefreshing = MutableLiveData(false)
@@ -19,9 +21,16 @@ class StocksViewModel(
     private val mutableError = MutableLiveData<ServiceState.Error?>(null)
     val error = mutableError.distinctUntilChanged()
 
-    private val stocksFlow = stocksService.getStocks()
-    val stocks = stocksFlow.asLiveData().also {
-        refreshStocks()
+    private val mutableFilter = MutableLiveData("")
+
+    fun setFilter(filter: String) {
+        mutableFilter.postValue(filter)
+    }
+
+    val stocks = mutableFilter.distinctUntilChanged().switchMap { filter ->
+        stocksService.getStocks().asLiveData().map { result ->
+            result.filter { it.ticker.startsWith(filter) }
+        }
     }
 
     fun refreshStocks() = viewModelScope.launch {

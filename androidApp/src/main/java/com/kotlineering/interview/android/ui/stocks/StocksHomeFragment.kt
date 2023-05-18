@@ -45,6 +45,10 @@ class StocksHomeFragment : HomeFragment() {
                 }
             }
 
+            onSearchChanged = {
+                viewModel.setFilter(it)
+            }
+
             // Refresh button
             onRefreshClicked = {
                 viewModel.refreshStocks()

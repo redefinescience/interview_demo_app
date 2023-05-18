@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.widget.doOnTextChanged
 import com.kotlineering.interview.android.databinding.ViewPortfolioHeaderBinding
 
 class PortfolioHeaderView @JvmOverloads constructor(
@@ -15,10 +16,12 @@ class PortfolioHeaderView @JvmOverloads constructor(
     ).apply {
         refresh.setOnClickListener { if (it.isEnabled) onRefreshClicked?.invoke() }
         devopts.setOnClickListener { onDevOptsClicked?.invoke() }
+        searchField.doOnTextChanged { text, _, _, _ -> onSearchChanged?.invoke(text.toString()) }
     }
 
     var onRefreshClicked: (() -> Unit)? = null
     var onDevOptsClicked: (() -> Unit)? = null
+    var onSearchChanged: ((String) -> Unit)? = null
 
     var name: CharSequence
         get() = binding.name.text ?: ""

@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.flowOn
 // will only use one for now..
 private const val DEFAULT_PORTFOLIO = ""
 
-class StocksService(
+open class StocksService(
     private val repository: StocksRepository,
     private val dispatcher: CoroutineDispatcher
 ) {
-    fun getStocks(): Flow<List<GetStocks>> = repository.getPortfolio(
+    open fun getStocks(): Flow<List<GetStocks>> = repository.getPortfolio(
         DEFAULT_PORTFOLIO
     ).asFlow().mapToList(dispatcher).distinctUntilChanged().flowOn(dispatcher)
 

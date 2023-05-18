@@ -35,6 +35,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/name" />
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/search_field"
+                android:hint="@string/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/error"
+                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/refresh"
                 android:layout_width="wrap_content"
@@ -43,7 +53,7 @@
                 android:textSize="8pt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/error"
+                app:layout_constraintTop_toBottomOf="@id/search_field"
                 style="@style/Widget.Material3.Button.TonalButton" />
 
             <com.google.android.material.button.MaterialButton
