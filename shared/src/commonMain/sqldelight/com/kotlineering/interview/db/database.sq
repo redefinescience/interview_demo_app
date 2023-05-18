@@ -81,6 +81,14 @@ upsertStock:
         ?, ?, ?, ?, ?, ?, ?
     );
 
+allStocks:
+    SELECT * FROM Stocks;
+
+
+cleanupStocks:
+    DELETE FROM Stocks
+        WHERE Stocks.ticker NOT IN ?;
+
 upsertPortfolio:
     INSERT OR REPLACE INTO Portfolio(
         name,

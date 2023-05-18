@@ -11,11 +11,21 @@ class StocksRepository(
     internal val db: Database,
     internal val dev: DeveloperRepository
 ) {
+
+    private fun cleanupStocks(stocks: List<StockResult>) = db.tryTransaction {
+        db.databaseQueries.cleanupStocks(
+            stocks.map { it.ticker }
+        )
+    }
+
     private fun updatePortfolio(
         portfolio: String, stocks: List<StockResult>, timeStamp: Long
     ) = db.tryTransaction {
         // Clear and update portfolio
         db.databaseQueries.clearPortfolioStocks(portfolio)
+        cleanupStocks(stocks)
+
+        // Upsert new list
         db.databaseQueries.upsertPortfolio(
             name = portfolio,
             size = stocks.size.toLong(),
@@ -50,6 +60,7 @@ class StocksRepository(
     fun getPortfolio(
         portfolio: String
     ) = db.databaseQueries.getStocks(portfolio)
+
 
     suspend fun refreshPortfolio(
         portfolio: String,
